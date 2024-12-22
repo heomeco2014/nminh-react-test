@@ -4,31 +4,32 @@ import {CartesianGrid, Line, LineChart, XAxis} from 'recharts';
 import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from '@/ui/card';
 
 import {ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent} from '@/ui/chart';
+import {useAppContext} from '@/providers/AppContext';
+
 const MultipleLinesChart = () => {
-	const chartData = [
-		{month: 'January', desktop: 186, mobile: 80},
-		{month: 'February', desktop: 305, mobile: 200},
-		{month: 'March', desktop: 237, mobile: 120},
-		{month: 'April', desktop: 73, mobile: 190},
-		{month: 'May', desktop: 209, mobile: 130},
-		{month: 'June', desktop: 214, mobile: 140},
-	];
+	const {summaryData} = useAppContext();
+	const data = summaryData.performanceDataInRange;
+	const chartData = data;
 
 	const chartConfig = {
-		desktop: {
-			label: 'Desktop',
+		clicks: {
+			label: 'Clicks',
 			color: 'hsl(var(--chart-1))',
 		},
-		mobile: {
-			label: 'Mobile',
+		revenue: {
+			label: 'Revenue',
 			color: 'hsl(var(--chart-2))',
+		},
+		conversion: {
+			label: 'Conversion',
+			color: 'hsl(var(--chart-3))',
 		},
 	} satisfies ChartConfig;
 
 	return (
 		<Card>
 			<CardHeader>
-				<CardTitle>Line Chart - Multiple</CardTitle>
+				<CardTitle>Line Chart</CardTitle>
 				<CardDescription>January - June 2024</CardDescription>
 			</CardHeader>
 			<CardContent>
@@ -37,27 +38,19 @@ const MultipleLinesChart = () => {
 						accessibilityLayer
 						data={chartData}
 						margin={{
-							left: 12,
+							left: 34,
 							right: 12,
 						}}>
 						<CartesianGrid vertical={false} />
-						<XAxis dataKey='month' tickLine={false} axisLine={false} tickMargin={8} tickFormatter={value => value.slice(0, 3)} />
+						<XAxis dataKey='date' axisLine={false} tickMargin={0} tickFormatter={value => value} />
 						<ChartTooltip cursor={false} content={<ChartTooltipContent />} />
-						<Line dataKey='desktop' type='monotone' stroke='var(--color-desktop)' strokeWidth={2} dot={false} />
-						<Line dataKey='mobile' type='monotone' stroke='var(--color-mobile)' strokeWidth={2} dot={false} />
+						<Line dataKey='clicks' type='monotone' stroke='var(--color-clicks)' strokeWidth={2} dot={true} />
+						<Line dataKey='revenue' type='monotone' stroke='var(--color-revenue)' strokeWidth={2} dot={true} />
+						<Line dataKey='conversionRate' type='monotone' stroke='var(--color-conversion)' strokeWidth={2} dot={true} />
 					</LineChart>
 				</ChartContainer>
 			</CardContent>
-			<CardFooter>
-				<div className='flex w-full items-start gap-2 text-sm'>
-					<div className='grid gap-2'>
-						<div className='flex items-center gap-2 font-medium leading-none'>
-							Trending up by 5.2% this month <TrendingUp className='h-4 w-4' />
-						</div>
-						<div className='flex items-center gap-2 leading-none text-muted-foreground'>Showing total visitors for the last 6 months</div>
-					</div>
-				</div>
-			</CardFooter>
+			<CardFooter></CardFooter>
 		</Card>
 	);
 };
