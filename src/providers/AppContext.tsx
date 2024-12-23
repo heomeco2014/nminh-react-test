@@ -21,6 +21,10 @@ type AppContextType = {
 	};
 	dateRange: DateRange | undefined;
 	setDateRange: (dateRange: DateRange | undefined) => void;
+
+	// State for implementing the date "fake loading" effect
+	isFakeLoading: boolean;
+	setIsFakeLoading: (loading: boolean) => void;
 };
 
 const AppContext = createContext({} as AppContextType);
@@ -35,7 +39,7 @@ export const AppProvider = ({children}: {children: ReactNode}) => {
 		from: new Date(performanceData[0].date),
 		to: new Date(performanceData[performanceData.length - 1].date),
 	});
-
+	const [isFakeLoading, setIsFakeLoading] = useState(true);
 	const summaryData = useMemo(() => {
 		const performanceDataInRange = performanceData.filter(data => {
 			if (!dateRange?.from) return true;
@@ -53,7 +57,6 @@ export const AppProvider = ({children}: {children: ReactNode}) => {
 			// Compare dates without time
 			return currentDate >= from && currentDate <= to;
 		});
-		console.log('♦️ | performanceDataInRange:', performanceDataInRange);
 
 		const clicks = performanceDataInRange.reduce((acc, data) => acc + data.clicks, 0);
 		const revenue = performanceDataInRange.reduce((acc, data) => acc + data.revenue, 0);
@@ -74,8 +77,10 @@ export const AppProvider = ({children}: {children: ReactNode}) => {
 			summaryData,
 			dateRange,
 			setDateRange,
+			isFakeLoading,
+			setIsFakeLoading,
 		}),
-		[performanceData, summaryData, dateRange]
+		[performanceData, summaryData, dateRange, isFakeLoading]
 	);
 
 	return <AppContext.Provider value={memoizedValue}>{children}</AppContext.Provider>;

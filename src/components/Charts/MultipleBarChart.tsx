@@ -1,23 +1,9 @@
 import {Bar, BarChart, CartesianGrid, XAxis} from 'recharts';
 
 import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from '@/ui/card';
-import {ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent} from '@/ui/chart';
+import {ChartContainer, ChartTooltip, ChartTooltipContent} from '@/ui/chart';
 import {useAppContext} from '@/providers/AppContext';
-
-const chartConfig = {
-	clicks: {
-		label: 'Clicks',
-		color: 'hsl(var(--chart-1))',
-	},
-	revenue: {
-		label: 'Revenue',
-		color: 'hsl(var(--chart-2))',
-	},
-	conversion: {
-		label: 'Conversion',
-		color: 'hsl(var(--chart-3))',
-	},
-} satisfies ChartConfig;
+import {chartConfig} from './chartConfig';
 
 export function MultipleBarChart() {
 	const {summaryData} = useAppContext();
@@ -27,7 +13,7 @@ export function MultipleBarChart() {
 		<Card>
 			<CardHeader>
 				<CardTitle>Bar Chart</CardTitle>
-				<CardDescription>January</CardDescription>
+				<CardDescription></CardDescription>
 			</CardHeader>
 			<CardContent>
 				<ChartContainer config={chartConfig}>
@@ -37,7 +23,7 @@ export function MultipleBarChart() {
 						<ChartTooltip cursor={false} content={<ChartTooltipContent indicator='dashed' />} />
 						<Bar dataKey='clicks' fill='var(--color-clicks)' />
 						<Bar dataKey='revenue' fill='var(--color-revenue)' />
-						<Bar dataKey='conversionRate' fill='var(--color-conversion)' />
+						<Bar dataKey='conversionRate' fill='var(--color-conversionRate)' />
 					</BarChart>
 				</ChartContainer>
 			</CardContent>

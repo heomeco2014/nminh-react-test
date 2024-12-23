@@ -4,30 +4,17 @@ import {TrendingUp} from 'lucide-react';
 import {CartesianGrid, Line, LineChart, XAxis} from 'recharts';
 
 import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from '@/ui/card';
-import {ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent} from '@/ui/chart';
+import {ChartContainer, ChartTooltip, ChartTooltipContent} from '@/ui/chart';
 import data from '../../data/data.json';
+import {chartConfig} from './chartConfig';
 const chartData = data;
-const chartConfig = {
-	clicks: {
-		label: 'Clicks',
-		color: 'hsl(var(--chart-1))',
-	},
-	revenue: {
-		label: 'Revenue',
-		color: 'hsl(var(--chart-2))',
-	},
-	conversion: {
-		label: 'Conversion',
-		color: 'hsl(var(--chart-3))',
-	},
-} satisfies ChartConfig;
 
 export function LineChartWithLabel() {
 	return (
 		<Card>
 			<CardHeader>
-				<CardTitle>Line Chart - Step</CardTitle>
-				<CardDescription>January - June 2024</CardDescription>
+				<CardTitle>Line Chart</CardTitle>
+				<CardDescription></CardDescription>
 			</CardHeader>
 			<CardContent>
 				<ChartContainer config={chartConfig}>

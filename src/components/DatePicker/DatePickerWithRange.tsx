@@ -69,11 +69,7 @@ export function DatePickerWithRange({date: controlledDate, onDateChange}: DatePi
 					</Button>
 				</PopoverTrigger>
 				<PopoverContent className='w-auto p-0' align='start'>
-					<div className='p-3 border-b'>
-						<div className='text-sm text-muted-foreground'>Click once for single day, click and drag for range</div>
-					</div>
-
-					<Calendar initialFocus mode='range' defaultMonth={new Date('2023-12-01')} selected={date} onSelect={handleDateChange} numberOfMonths={2} fromDate={new Date('2023-12-01')} toDate={new Date('2023-12-05')} />
+					<Calendar initialFocus mode='range' defaultMonth={new Date('2023-12-01')} selected={date} onSelect={handleDateChange} numberOfMonths={1} fromDate={new Date('2023-12-01')} toDate={new Date('2023-12-05')} />
 				</PopoverContent>
 			</Popover>
 		</div>
